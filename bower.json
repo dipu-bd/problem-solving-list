@@ -1,0 +1,21 @@
+{
+  "name": "ProblemSolvingList",
+  "authors": [
+    "dipu-bd <dipu.sudipta@gmail.com>"
+  ],
+  "description": "List of problems to solve",
+  "main": "index.html",
+  "license": "MIT",
+  "homepage": "dipu-bd.github.io/problem-solving-list",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.6",
+    "angular": "angularjs#^1.5.5"
+  }
+}

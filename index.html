@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html ng-app="ProblemListApp" ng-controller="HomePageController">
+<head>
+    <title>{{title}}</title>
+
+    <!-- default meta tags -->
+    <meta charset="UTF-8" />
+    <meta name="author" content="Sudipto Chandra" />
+    <meta name="description" content="{{description}}"/>
+
+    <!-- open graph meta tags -->
+    <!-- more here: http://ogp.me/ -->
+    <meta name="og:title" content="{{config.title}}"/>
+    <meta name="og:type" content="website"/>
+    <meta name="og:image" content="{{config.site_image}}"/>
+    <meta name="og:url" content="{{config.site_url}}"/>
+    <meta name="og:site_name" content="{{config.title}}"/>
+    <meta name="og:description" content="{{config.description}}"/>
+
+    <!-- relative links -->
+    <link rel="shortcut icon" type="image/ico" href="favicon.png" />
+    <!--stylesheets should be pre-loaded -->
+    <link rel="stylesheet" type="text/css" media="screen" href="style.css" />
+    <!-- scripts files needed beforehand -->
+    <script type="text/javascript" src="app.js"></script>
+</head>
+<body>
+
+</body>
+</html>
