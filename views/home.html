@@ -1,0 +1,41 @@
+<div class="container">
+    <div class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-brand">
+                Add New Problem
+            </div>
+            <add-problems class="navbar-left"></add-problems>
+            <search-problem class="navbar-right"></search-problem>
+        </div>
+    </div>
+
+    <div class="list-area">
+
+        <!- category list>
+        <div class="col-sm-9">
+            <div class="list-title">Problems</div>
+            <table class="table table-bordered">
+                <tr>
+                    <th>
+
+                    </th>
+                    <th>
+
+                    </th>
+                </tr>
+                <tr ng-repeat="">
+
+                </tr>
+            </table>
+        </div>
+
+        <!- category list>
+        <div class="col-sm-3">
+            <div class="list-title">Categories</div>
+            <ul ng-repeat="category in data.category">
+                <li><a href="{{category.url}}">{{category.name}}</a></li>
+            </ul>
+        </div>
+
+    </div>
+</div>

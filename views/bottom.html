@@ -1,0 +1,13 @@
+<div class="navbar navbar-inverse bottom-bar">
+    <div class="container navbar-text text-center">
+        Developed and Maintained by, <br/>
+        <ul class="list-unstyled" ng-repeat="author in config.authors">
+            <li>
+                <div class="author-name">{{author.name}}</div>
+            </li>
+            <li>
+                <a class="navbar-link" href="mailto:{{author.email}}">{{author.email}}</a>
+            </li>
+        </ul>
+    </div>
+</div>

@@ -1,0 +1,43 @@
+/* latin */
+@font-face {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Montserrat-Regular'), url(../img/monteserat.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+@font-face {
+    font-family: 'Pacifico';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Pacifico Regular'), local('Pacifico-Regular'), url(../img/pacifico.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+
+
+html, body {
+    background-color: #3c3c3c;
+}
+
+.author-name {
+    font: 1.6em Pacifico;
+}
+
+.list-title {
+    font: 1.5em Montserrat;
+    text-align: center;
+    padding: 6px;
+    color: #edc;
+    background-color: #555;
+}
+
+.list-area {
+    padding: 10px 0 10px 0;
+    margin: 10px 0 10px 0;
+    background-color: #444;
+    min-height: 450px;
+}
+
+.bottom-bar {
+    margin: 10px 0 0 0;
+}
