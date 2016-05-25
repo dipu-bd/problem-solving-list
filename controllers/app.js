@@ -11,6 +11,8 @@
 
     var homepage = {};
     var apiClient = null;
+    var categoryData = {};
+
 
     problemListApp.controller('HomePageController', function ($scope) {
         homepage = $scope;
@@ -36,7 +38,9 @@
                 return false;
             }
             if (homepage.filterText) {
-
+                return prob.name.search(homepage.filterText) ||
+                    prob.link.search(homepage.filterText) ||
+                    prob.category.search(homepage.filterText);
             }
             return true;
         }
@@ -60,12 +64,10 @@
             type: PROBLEMS_TYPE
         };
         /* We pass our properties to getEntity(), which initiates our GET request: */
-        apiClient.getEntity(properties, function (errorStatus, response, errorMessage) {
+        apiClient.getEntity(properties, function (errorStatus, response, error) {
             if (errorStatus) {
-                // Error - there was a problem creating the entity
-                alert("Error! Unable to create your entity. "
-                    + "See console to view detailed error message.");
-                console.log(errorMessage);
+                // ERROR: could not get entities
+                console.log(error);
             } else {
                 // Success - the entities received
                 //console.log(response);
@@ -74,8 +76,6 @@
             }
         });
     }
-
-    var categoryData = {};
 
     function buildCategory() {
         homepage.problems.forEach(function (prob) {
@@ -88,10 +88,8 @@
     }
 
     function addProblem(prob) {
-        if (!(prob.link && prob.category)) {
-            alert("Please fill all necessary fields.");
-            return;
-        }
+        // validity check
+        if (!checkValid(prob)) return;
         // define data type
         formatProblem(prob);
         prob.type = PROBLEMS_TYPE;
@@ -181,16 +179,59 @@
 
 })();
 
+
 var formatProblem = function (problem) {
     var parser = document.createElement('a');
     parser.href = problem.link;
 
+    var paths = parser.pathname.split('/');
     var query = parseQueryString(parser.search);
     switch (parser.hostname) {
         case "uva.onlinejudge.org":
-            problem.name = "UVA " + query["problem"];
+            problem.name = "UVA problem " + query.problem;
+            break;
+        case "lightoj.com":
+            problem.name = "LightOJ problem " + query.problem;
+            break;
+        case "codeforces.com":
+            problem.name = "CodeForces " + paths.join(" ").trim();
+            break;
+        case "acm.hust.edu.cn":
+            //http://acm.hust.edu.cn/vjudge/problem/viewProblem.action?id=23915
+            problem.name = "HUST VJudge problem " + query.id;
+            break;
+        case "acm.hdu.edu.cn":
+            //http://acm.hdu.edu.cn/showproblem.php?pid=1608
+            problem.name = "HDU problem " + query.pid;
+            break;
+        case "icpcarchive.ecs.baylor.edu":
+            //https://icpcarchive.ecs.baylor.edu/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=5192
+            problem.name = "ICPC Archive problem " + query.problem;
+            break;
+        case "www.codechef.com": //https://www.codechef.com/problems/AMLPALIN
+            probem.name = "CodeChef " + paths[2];
+            break;
+        case "www.spoj.com": //http://www.spoj.com/problems/DISUBSTR/en/
+            probem.name = "SPOJ " + paths[2];
+            break;
+        case "acm.timus.ru" : //http://acm.timus.ru/problem.aspx?space=1&num=1837
+            problem.name = "Timus " + query.num;
+            break;
+        case "judge.u-aizu.ac.jp":
+            //http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=0019
+            problem.name = "Aizu " + query.id;
             break;
         default:
+            // most judge has problem tag in search param
+            if (query.hasOwnProperty('problem')) {
+                problem.name = parser.hostname + " " + query["problem"];
+            } else {
+                problem.name = parser.hostname + " " +
+                    path.join(" ").trim() + " " +
+                    parser.search.slice(1) + " " +
+                    parser.hash;
+                problem.name = problem.name.trim();
+            }
             break;
     }
 
@@ -214,4 +255,20 @@ var parseQueryString = function (str) {
         }
     );
     return objURL;
+};
+
+var checkValid = function (prob) {
+    if (!isValidURL(prob.link)) {
+        alert("Please provide valid problem link.");
+        return false;
+    }
+    if (!prob.category || prob.category.length < 2) {
+        alert("Please provide a valid category name");
+        return false;
+    }
+    return true;
+};
+
+var isValidURL = function (str) {
+    return (str);
 };
