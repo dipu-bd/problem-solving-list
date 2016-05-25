@@ -22,6 +22,7 @@
         homepage.selectedCat = "";
         homepage.filterText = "";
         homepage.loggedIn = false;
+        homepage.client = {};
         // download and show list of problems
         loadClient(function (client) {
             apiClient = client;
@@ -77,6 +78,7 @@
                 alert("An error occurred! See console for details");
                 console.log(error);
             } else {
+                client = user;
                 homepage.loggedIn = true;
                 loadProblems();
             }

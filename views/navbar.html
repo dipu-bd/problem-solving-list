@@ -9,7 +9,7 @@
         <div class="navbar-right">
             <login-form ng-show="!loggedIn"></login-form>
             <div class="navbar-text" ng-show="loggedIn">
-                Logged in as <strong>{{client.username}}</strong>
+                Logged in as <strong>{{client.name || client.username}}</strong>
             </div>
         </div>
     </div>
