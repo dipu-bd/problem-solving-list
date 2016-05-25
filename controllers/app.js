@@ -21,6 +21,7 @@
         homepage.config = getConfig();
         homepage.selectedCat = "";
         homepage.filterText = "";
+        homepage.loggedIn = false;
         // download and show list of problems
         loadClient(function (client) {
             apiClient = client;
@@ -30,9 +31,12 @@
         $scope.deleteProblem = deleteProblem;
         $scope.addProblem = addProblem;
         $scope.loadProblems = loadProblems;
+        $scope.doLogin = doLogin;
+
         $scope.setCategory = function (cat) {
             homepage.selectedCat = cat;
         };
+
         $scope.canShow = function (prob) {
             if (homepage.selectedCat && prob.category != homepage.selectedCat) {
                 return false;
@@ -43,7 +47,14 @@
                     prob.category.search(homepage.filterText);
             }
             return true;
-        }
+        };
+
+        $scope.sortBy = function (prop) {
+          homepage.problems.sort(function (a, b) {
+              return a[prop] < b[prop] ? -1 : a[prop] > b[prop];
+          });
+          homepage.sortedBy = prop;
+        };
     });
 
     /*********************************************************
@@ -59,32 +70,42 @@
         }));
     }
 
+    function doLogin(username, password) {
+        //Call the login function below
+        apiClient.login(username, password, function(error, data, user){
+            if(error) {
+                alert("An error occurred! See console for details");
+                console.log(error);
+            } else {
+                homepage.loggedIn = true;
+                loadProblems();
+            }
+        });
+    }
+
     function loadProblems() {
         var properties = {
             type: PROBLEMS_TYPE
         };
         /* We pass our properties to getEntity(), which initiates our GET request: */
-        apiClient.getEntity(properties, function (errorStatus, response, error) {
-            if (errorStatus) {
+        apiClient.getEntity(properties, function (error, response) {
+            if (error) {
                 // ERROR: could not get entities
                 console.log(error);
             } else {
                 // Success - the entities received
                 //console.log(response);
                 homepage.problems = response.entities;
-                buildCategory();
+                //build category
+                homepage.problems.forEach(function (prob) {
+                    formatProblem(prob);
+                    if (prob.category) {
+                        categoryData[prob.category] = prob.category;
+                    }
+                });
+                homepage.categories = Object.getOwnPropertyNames(categoryData);
             }
         });
-    }
-
-    function buildCategory() {
-        homepage.problems.forEach(function (prob) {
-            formatProblem(prob);
-            if (prob.category) {
-                categoryData[prob.category] = prob.category;
-            }
-        });
-        homepage.categories = Object.getOwnPropertyNames(categoryData);
     }
 
     function addProblem(prob) {
@@ -97,8 +118,7 @@
         apiClient.createEntity(prob, function (errorStatus, response, errorMessage) {
             if (errorStatus) {
                 // Error - there was a problem creating the entity
-                alert("Error! Unable to create your entity. "
-                    + "Did you enter the correct organization name?");
+                alert("Error! Please login first.");
                 console.log(errorMessage);
             } else {
                 // Success - the entity was created properly
@@ -107,13 +127,15 @@
                 homepage.problems.push(prob);
                 categoryData[prob.category] = prob.category;
                 homepage.categories = Object.getOwnPropertyNames(categoryData);
+
+                loadProblems();
             }
         });
     }
 
     function deleteProblem(prob) {
         var properties = {
-            client: dataClient,
+            client: apiClient,
             data: {
                 type: PROBLEMS_TYPE,
                 uuid: prob.uuid
@@ -127,13 +149,14 @@
         entity.destroy(function (error, response) {
             if (error) {
                 // Error - there was a problem creating the entity
-                alert("Error! Unable to create your entity. "
-                    + "See console to view detailed error message.");
+                alert("Error! Please login first.");
                 console.log(error);
             } else {
                 // Success - the entity was successfully deleted
                 alert("Success! The entity has been deleted.");
                 console.log(response);
+
+                loadProblems();
             }
         });
     }
@@ -174,6 +197,13 @@
         return {
             restrict: 'E',
             templateUrl: 'views/search-problems.html'
+        };
+    });
+
+    problemListApp.directive('loginForm', function () {
+        return {
+            restrict: 'E',
+            templateUrl: 'views/login-form.html'
         };
     });
 

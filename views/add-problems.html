@@ -1,14 +1,13 @@
-<form class="form-inline navbar-form">
-    <div class="form-group input-group">
+<form class="navbar-form form-inline">
+    <div class="input-group">
         <div class="input-group-addon">
             <i class="glyphicon glyphicon-link"></i>
         </div>
         <input class="form-control"
                type="text" name="problem" ng-model="problem.link"
                placeholder="Enter problem link"/>
-
     </div>
-    <div class="form-group input-group">
+    <div class="input-group">
         <div class="input-group-addon">
             <i class="glyphicon glyphicon-list"></i>
         </div>
@@ -16,7 +15,7 @@
                type="text" name="category" ng-model="problem.category"
                placeholder="Enter category"/>
     </div>
-    <div class="form-group ">
+    <div class="form-group">
         <button class="form-control" ng-click="addProblem(problem);">
             <i class="glyphicon glyphicon-plus">Add</i>
         </button>

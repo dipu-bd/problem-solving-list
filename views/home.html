@@ -36,10 +36,12 @@
             </div>
             <table class="table table-responsive table-bordered problem-list">
                 <tr>
-                    <th>
+                    <th ng-click="sortBy('name');">
+                        <i class="glyphicon glyphicon-sort" ng-show="sortedBy=='name'"></i>
                         Problem
                     </th>
-                    <th width="20%">
+                    <th width="20%" ng-click="sortBy('category');">
+                        <i class="glyphicon glyphicon-sort" ng-show="sortedBy=='category'"></i>
                         Category
                     </th>
                     <th width="100px">

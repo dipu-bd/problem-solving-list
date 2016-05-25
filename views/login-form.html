@@ -1,0 +1,24 @@
+<form class="navbar-form form-inline" ng-submit="doLogin(client.username, client.password);">
+    <div class="input-group">
+        <div class="input-group-addon">
+            <i class="glyphicon glyphicon-user"></i>
+        </div>
+        <input class="form-control"
+               type="text" ng-model="client.username"
+               placeholder="Username"/>
+    </div>
+    <div class="input-group">
+        <div class="input-group-addon">
+            <i class="glyphicon glyphicon-lock"></i>
+        </div>
+        <input class="form-control"
+               type="password" ng-model="client.password"
+               placeholder="Password"/>
+    </div>
+    <div class="form-group">
+        <button  class="form-control" type="submit">
+            <i class="glyphicon glyphicon-log-in"></i> Login
+        </button>
+    </div>
+</form>
+

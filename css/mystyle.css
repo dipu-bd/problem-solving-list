@@ -33,7 +33,7 @@ html, body {
 }
 
 .list-area {
-    padding: 10px 0 10px 0;
+    padding: 5px;
     margin: 10px 0 10px 0;
     background-color: #444;
     min-height: 450px;
@@ -42,6 +42,11 @@ html, body {
 
 .problem-list th {
     font-size: large;
+    background-color: #2c2c2c;
+}
+.problem-list th:hover {
+    font-size: large;
+    background-color: #2e2f1c;
 }
 
 .problem-list .link {
