@@ -32,9 +32,17 @@ html, body {
     background-color: #555;
 }
 
+.navbar {
+    margin-bottom: 0;
+}
+
+.add-problem-bar {
+    margin-top: 5px;
+}
+
 .list-area {
-    padding: 5px;
-    margin: 10px 0 10px 0;
+    padding: 10px;
+    margin: 5px 0 10px 0;
     background-color: #444;
     min-height: 450px;
     height: auto;

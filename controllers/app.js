@@ -1,4 +1,4 @@
-(function () {
+(function APP() {
     var APIGEE_ORGNAME = 'sdipu';
     var APIGEE_APPNAME = 'problemsolvinglist';
     var PROBLEMS_TYPE = 'problems';
@@ -78,7 +78,7 @@
                 alert("An error occurred! See console for details");
                 console.log(error);
             } else {
-                client = user;
+                homepage.client = user._data;
                 homepage.loggedIn = true;
                 loadProblems();
             }

@@ -9,7 +9,9 @@
         <div class="navbar-right">
             <login-form ng-show="!loggedIn"></login-form>
             <div class="navbar-text" ng-show="loggedIn">
-                Logged in as <strong>{{client.name || client.username}}</strong>
+                <img src="{{client.picture}}" alt="user" height="24px" ng-show="client.picture"/>
+                <i class="glyphicon glyphicon-user" ng-show="!client.picture"></i>
+                <strong>{{client.name || client.username}}</strong>
             </div>
         </div>
     </div>
