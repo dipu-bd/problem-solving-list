@@ -290,7 +290,7 @@
       <workItem from="1464127859276" duration="1648000" />
       <workItem from="1464129517111" duration="11738000" />
       <workItem from="1464163738232" duration="2884000" />
-      <workItem from="1464185336695" duration="13630000" />
+      <workItem from="1464185336695" duration="13650000" />
     </task>
     <task id="LOCAL-00001" summary="basic design completed">
       <created>1464137333883</created>
@@ -334,15 +334,22 @@
       <option name="project" value="LOCAL" />
       <updated>1464198950932</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="alpha version">
+      <created>1464198979761</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1464198979761</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="29900000" />
+    <option name="totallyTimeSpent" value="29920000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="53" y="24" width="1313" height="744" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18507235" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -381,7 +388,8 @@
     <MESSAGE value="category navigation completed" />
     <MESSAGE value="various judge added" />
     <MESSAGE value="added login feature" />
-    <option name="LAST_COMMIT_MESSAGE" value="added login feature" />
+    <MESSAGE value="alpha version" />
+    <option name="LAST_COMMIT_MESSAGE" value="alpha version" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
