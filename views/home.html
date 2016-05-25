@@ -12,42 +12,49 @@
     <div class="list-area">
 
         <!- category list>
+        <div class="col-sm-3">
+            <div class="list-title">Categories</div>
+            <ul class="nav nav-pills nav-stacked category-menu">
+                <li>
+                    <a href="#" ng-click="viewCategory()">All Problems</a>
+                </li>
+                <li ng-repeat="cat in categories">
+                    <a href="#" ng-click="viewCategory(cat)">{{cat}}</a>
+                </li>
+            </ul>
+        </div>
+
+        <!- category list>
         <div class="col-sm-9">
             <div class="list-title">Problems</div>
-            <table class="table table-bordered">
+            <table class="table table-responsive table-bordered problem-list">
                 <tr>
-                    <th>
-                        Link
+                    <th width="30%">
+                        Category
                     </th>
-                    <th>
+                    <th width="50%">
+                        Problem
+                    </th>
+                    <th width="20%">
                         Action
                     </th>
                 </tr>
-                <tr ng-repeat="prob in problems">
+                <tr ng-repeat="prob in problems" class="problem">
                     <td>
-                        {{prob.link}}
+                        {{prob.category}}
                     </td>
                     <td>
-                        <div class="btn-group">
-                            <button class="btn btn-default">
-                                <i class="glyphicon glyphicon-export"></i> Visit
-                            </button>
-                            <button class="btn btn-default">
-                                <i class="glyphicon glyphicon-remove"></i> Delete
-                            </button>
-                        </div>
+                        <a class="link" target="_blank" href="{{prob.link||'#'}}">
+                            <i class="glyphicon glyphicon-export"></i> {{prob.name || prob.link}}
+                        </a>
+                    </td>
+                    <td>
+                        <button class="btn btn-default" ng-click="deleteProblem(prob)">
+                            <i class="glyphicon glyphicon-remove"></i>
+                        </button>
                     </td>
                 </tr>
             </table>
         </div>
-
-        <!- category list>
-        <div class="col-sm-3">
-            <div class="list-title">Categories</div>
-            <ul ng-repeat="cat in category">
-                <li><a href="{{cat.link || '#'}}">{{cat.name}}</a></li>
-            </ul>
-        </div>
-
     </div>
 </div>

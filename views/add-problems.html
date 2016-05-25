@@ -4,7 +4,7 @@
             <i class="glyphicon glyphicon-link"></i>
         </div>
         <input class="form-control"
-               type="text" name="problem"
+               type="text" name="problem" ng-model="problem.link"
                placeholder="Enter problem link"/>
 
     </div>
@@ -13,11 +13,13 @@
             <i class="glyphicon glyphicon-list"></i>
         </div>
         <input class="form-control"
-               type="text" name="category"
+               type="text" name="category" ng-model="problem.category"
                placeholder="Enter category"/>
     </div>
     <div class="form-group ">
-        <input class="form-control" type="submit" value="Add"/>
+        <button class="form-control" ng-click="addProblem(problem);">
+            <i class="glyphicon glyphicon-plus">Add</i>
+        </button>
     </div>
 </form>
 

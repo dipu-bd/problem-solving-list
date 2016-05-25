@@ -17,6 +17,7 @@
 
 html, body {
     background-color: #3c3c3c;
+    color: #ffd;
 }
 
 .author-name {
@@ -36,6 +37,16 @@ html, body {
     margin: 10px 0 10px 0;
     background-color: #444;
     min-height: 450px;
+    height: auto;
+}
+
+.problem-list .link {
+    color: #fff;
+}
+
+.category-menu {
+    padding: 5px;
+    background-color: #222;
 }
 
 .bottom-bar {
