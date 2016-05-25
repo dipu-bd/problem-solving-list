@@ -17,15 +17,29 @@
         homepage.problems = [];
         homepage.categories = [];
         homepage.config = getConfig();
+        homepage.selectedCat = "";
+        homepage.filterText = "";
         // download and show list of problems
         loadClient(function (client) {
             apiClient = client;
-            getProblems();
+            loadProblems();
         });
         // define functions
         $scope.deleteProblem = deleteProblem;
         $scope.addProblem = addProblem;
-        $scope.viewCategory = getProblems;
+        $scope.loadProblems = loadProblems;
+        $scope.setCategory = function (cat) {
+            homepage.selectedCat = cat;
+        };
+        $scope.canShow = function (prob) {
+            if (homepage.selectedCat && prob.category != homepage.selectedCat) {
+                return false;
+            }
+            if (homepage.filterText) {
+
+            }
+            return true;
+        }
     });
 
     /*********************************************************
@@ -41,13 +55,10 @@
         }));
     }
 
-    function getProblems(category) {
+    function loadProblems() {
         var properties = {
             type: PROBLEMS_TYPE
         };
-        if (category) {
-            properties.category = category;
-        }
         /* We pass our properties to getEntity(), which initiates our GET request: */
         apiClient.getEntity(properties, function (errorStatus, response, errorMessage) {
             if (errorStatus) {
@@ -57,26 +68,30 @@
                 console.log(errorMessage);
             } else {
                 // Success - the entities received
-                console.log(response);
-
+                //console.log(response);
                 homepage.problems = response.entities;
                 buildCategory();
             }
         });
     }
 
+    var categoryData = {};
+
     function buildCategory() {
-        var data = {};
         homepage.problems.forEach(function (prob) {
             formatProblem(prob);
             if (prob.category) {
-                data[prob.category] = prob.category;
+                categoryData[prob.category] = prob.category;
             }
         });
-        homepage.categories = Object.getOwnPropertyNames(data);
+        homepage.categories = Object.getOwnPropertyNames(categoryData);
     }
 
     function addProblem(prob) {
+        if (!(prob.link && prob.category)) {
+            alert("Please fill all necessary fields.");
+            return;
+        }
         // define data type
         formatProblem(prob);
         prob.type = PROBLEMS_TYPE;
@@ -89,11 +104,11 @@
                 console.log(errorMessage);
             } else {
                 // Success - the entity was created properly
-                alert("Success!\nUUID of created Entity: "
-                    + JSON.stringify(response.get('uuid')));
-                console.log(response);
+                //console.log(response);
 
-                //homepage.categories[] = prob.category;
+                homepage.problems.push(prob);
+                categoryData[prob.category] = prob.category;
+                homepage.categories = Object.getOwnPropertyNames(categoryData);
             }
         });
     }

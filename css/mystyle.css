@@ -40,8 +40,12 @@ html, body {
     height: auto;
 }
 
+.problem-list th {
+    font-size: large;
+}
+
 .problem-list .link {
-    color: #fff;
+    color: #ff0;
 }
 
 .category-menu {
