@@ -24,6 +24,12 @@ html, body {
     font: 1.6em Pacifico;
 }
 
+.form-holder {
+    background-color: #222;
+    margin: 10px;
+    padding: 10px;
+}
+
 .list-title {
     font: 1.5em Montserrat;
     text-align: center;
@@ -38,14 +44,6 @@ html, body {
 
 .add-problem-bar {
     margin-top: 5px;
-}
-
-.list-area {
-    padding: 10px;
-    margin: 5px 0 10px 0;
-    background-color: #444;
-    min-height: 450px;
-    height: auto;
 }
 
 .problem-list th {

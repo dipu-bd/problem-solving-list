@@ -13,21 +13,24 @@
     var apiClient = null;
     var categoryData = {};
 
-
     problemListApp.controller('HomePageController', function ($scope) {
         homepage = $scope;
+        homepage.config = getConfig();
         homepage.problems = [];
         homepage.categories = [];
-        homepage.config = getConfig();
+
         homepage.selectedCat = "";
         homepage.filterText = "";
         homepage.loggedIn = false;
         homepage.client = {};
+        homepage.problem = {};
+        
         // download and show list of problems
         loadClient(function (client) {
             apiClient = client;
             loadProblems();
         });
+        
         // define functions
         $scope.deleteProblem = deleteProblem;
         $scope.addProblem = addProblem;
@@ -126,9 +129,11 @@
                 // Success - the entity was created properly
                 //console.log(response);
 
+
                 homepage.problems.push(prob);
                 categoryData[prob.category] = prob.category;
                 homepage.categories = Object.getOwnPropertyNames(categoryData);
+                homepage.problem = {};
 
                 loadProblems();
             }
