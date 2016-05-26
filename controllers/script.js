@@ -66,10 +66,10 @@ var formatProblem = function (problem) {
             problem.name = "ICPC Archive " + query.problem;
             break;
         case "www.codechef.com": //https://www.codechef.com/problems/AMLPALIN
-            probem.name = "CodeChef " + paths[2];
+            problem.name = "CodeChef " + paths[2];
             break;
         case "www.spoj.com": //http://www.spoj.com/problems/DISUBSTR/en/
-            probem.name = "SPOJ " + paths[2];
+            problem.name = "SPOJ " + paths[2];
             break;
         case "acm.timus.ru" : //http://acm.timus.ru/problem.aspx?space=1&num=1837
             problem.name = "Timus " + query.num;

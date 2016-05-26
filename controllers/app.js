@@ -11,6 +11,7 @@
 
     var homepage = {};
     var categoryData = {};
+    var lastResponseTime = 0;
 
     problemListApp.controller('HomePageController', function ($scope) {
         homepage = $scope;
@@ -24,13 +25,13 @@
         homepage.client = {};
         homepage.problem = {};
 
-        // download and show list of problems 
-        loadProblems();
+        // download and show list of problems
+        getProblems();
+        setInterval(getProblems, 10000);
 
         // define functions
         $scope.deleteProblem = deleteProblem;
         $scope.addProblem = addProblem;
-        $scope.loadProblems = loadProblems;
         $scope.doLogin = doLogin;
 
         $scope.setCategory = function (cat) {
@@ -68,39 +69,46 @@
 
     var apiClient = new Apigee.Client({
         orgName: APIGEE_ORGNAME,
-        appName: APIGEE_APPNAME,
-        logging: false, //optional - turn on logging, off by default
-        buildCurl: false //optional - log network calls in the console, off by default
+        appName: APIGEE_APPNAME
     });
 
     function doLogin(username, password) {
-        //Call the login function below
-        apiClient.login(username, password, function (error, data, user) {
-            if (error) {
-                alert("An error occurred! See console for details");
-                console.log(error);
-            } else {
-                homepage.client = user._data;
-                homepage.loggedIn = true;
-                loadProblems();
-            }
-        });
+        setTimeout(function () {
+            //Call the login function below
+            apiClient.login(username, password, function (error, data, user) {
+                if (error) {
+                    alert("An error occurred! See console for details");
+                    console.log(error);
+                } else {
+                    homepage.client = user._data;
+                    homepage.loggedIn = true;
+                }
+            });
+        }, 0);
     }
 
-    function loadProblems() {
+    function getProblems() {
         setTimeout(function () {
             var properties = {
                 type: PROBLEMS_TYPE
             };
+
             /* We pass our properties to getEntity(), which initiates our GET request: */
             apiClient.getEntity(properties, function (error, response) {
                 if (error) {
-                    // ERROR: could not get entities
                     console.log(error);
                 } else {
-                    // Success - the entities received
                     //console.log(response);
+
+                    // check timestamp
+                    if (response.timestamp < lastResponseTime) {
+                        return;
+                    }
+                    lastResponseTime = response.timestamp;
+
+                    // set problems
                     homepage.problems = response.entities;
+
                     //build category
                     homepage.problems.forEach(function (prob) {
                         formatProblem(prob);
@@ -108,10 +116,12 @@
                             categoryData[prob.category] = prob.category;
                         }
                     });
+
+                    // set category
                     homepage.categories = Object.getOwnPropertyNames(categoryData);
                 }
             });
-        }, 100);
+        }, 0);
     }
 
     function addProblem(prob) {
@@ -121,27 +131,30 @@
         formatProblem(prob);
         prob.type = PROBLEMS_TYPE;
         // send request to api client
-        apiClient.createEntity(prob, function (errorStatus, response, errorMessage) {
+        apiClient.createEntity(prob, function (errorStatus, response) {
             if (errorStatus) {
                 // Error - there was a problem creating the entity
-                alert("Error! Please login first.");
-                console.log(errorMessage);
+                alert("Error! \n" + errorStatus);
             } else {
                 // Success - the entity was created properly
                 //console.log(response);
 
+                homepage.problem = {};
+
+                prob = response.entities[0];
+                console.log(prob);
 
                 homepage.problems.push(prob);
                 categoryData[prob.category] = prob.category;
                 homepage.categories = Object.getOwnPropertyNames(categoryData);
-                homepage.problem = {};
-
-                loadProblems();
             }
         });
     }
 
     function deleteProblem(prob) {
+        if (!confirm("Are your sure to delete this problem?")) {
+            return;
+        }
         var properties = {
             client: apiClient,
             data: {
@@ -157,14 +170,11 @@
         entity.destroy(function (error, response) {
             if (error) {
                 // Error - there was a problem creating the entity
-                alert("Error! Please login first.");
-                console.log(error);
+                alert("Error! \n" + error);
             } else {
-                // Success - the entity was successfully deleted
-                alert("Success! The entity has been deleted.");
-                console.log(response);
-
-                loadProblems();
+                homepage.problems = homepage.problems.filter(function (item) {
+                    return item.uuid != prob.uuid
+                });
             }
         });
     }
