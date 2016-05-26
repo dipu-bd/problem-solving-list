@@ -20,6 +20,10 @@ html, body {
     color: #ffd;
 }
 
+a {
+    color: #eef;
+}
+
 .author-name {
     font: 1.6em Pacifico;
 }
@@ -56,7 +60,7 @@ html, body {
 }
 
 .problem-list .link {
-    color: #ff0;
+    color: #fffe0f;
 }
 
 .category-menu {

@@ -1,14 +1,15 @@
-<form class="form-inline navbar-form">
+<form class="form-inline navbar-form" ng-submit="loadProblems()">
     <div class="input-group">
         <div class="input-group-addon">
             <i class="glyphicon glyphicon-search"></i>
         </div>
         <input class="form-control"
-               type="text" name="filter" ng-model="filterText"
+               type="text" ng-model="filterText"
                placeholder="Search Problems" />
     </div>
     <div class="form-group">
-        <button class="btn form-control" name="clear">Clear</button>
+        <input type="submit" class="hidden" value="Search"/>
+        <button class="btn form-control" ng-click="clearFilter()">Clear</button>
     </div>
 </form>
 

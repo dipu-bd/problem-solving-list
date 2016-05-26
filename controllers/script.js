@@ -48,25 +48,22 @@ var formatProblem = function (problem) {
     var query = parseQueryString(parser.search);
     switch (parser.hostname) {
         case "uva.onlinejudge.org":
-            problem.name = "UVA problem " + query.problem;
+            problem.name = "UVA " + query.problem;
             break;
         case "lightoj.com":
-            problem.name = "LightOJ problem " + query.problem;
-            break;
-        case "codeforces.com":
-            problem.name = "CodeForces " + paths.join(" ").trim();
+            problem.name = "LightOJ " + query.problem;
             break;
         case "acm.hust.edu.cn":
             //http://acm.hust.edu.cn/vjudge/problem/viewProblem.action?id=23915
-            problem.name = "HUST VJudge problem " + query.id;
+            problem.name = "HUST VJudge " + query.id;
             break;
         case "acm.hdu.edu.cn":
             //http://acm.hdu.edu.cn/showproblem.php?pid=1608
-            problem.name = "HDU problem " + query.pid;
+            problem.name = "HDU " + query.pid;
             break;
         case "icpcarchive.ecs.baylor.edu":
             //https://icpcarchive.ecs.baylor.edu/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=5192
-            problem.name = "ICPC Archive problem " + query.problem;
+            problem.name = "ICPC Archive " + query.problem;
             break;
         case "www.codechef.com": //https://www.codechef.com/problems/AMLPALIN
             probem.name = "CodeChef " + paths[2];
@@ -80,6 +77,16 @@ var formatProblem = function (problem) {
         case "judge.u-aizu.ac.jp":
             //http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=0019
             problem.name = "Aizu " + query.id;
+            break;
+        case "codeforces.com":
+            problem.name = "CodeForces ";
+            for (var i = 0; i < paths.length; ++i) {
+                if ($.isNumeric(paths[i]))
+                    problem.name += paths[i] + " ";
+                else if(paths[i].length == 1)
+                    problem.name += paths[i] + " ";
+            }
+            problem.name = problem.name.trim();
             break;
         default:
             // most judge has problem tag in search param

@@ -10,7 +10,6 @@
     var problemListApp = angular.module('ProblemListApp', []);
 
     var homepage = {};
-    var apiClient = null;
     var categoryData = {};
 
     problemListApp.controller('HomePageController', function ($scope) {
@@ -24,13 +23,10 @@
         homepage.loggedIn = false;
         homepage.client = {};
         homepage.problem = {};
-        
-        // download and show list of problems
-        loadClient(function (client) {
-            apiClient = client;
-            loadProblems();
-        });
-        
+
+        // download and show list of problems 
+        loadProblems();
+
         // define functions
         $scope.deleteProblem = deleteProblem;
         $scope.addProblem = addProblem;
@@ -40,24 +36,28 @@
         $scope.setCategory = function (cat) {
             homepage.selectedCat = cat;
         };
+        $scope.clearFilter = function () {
+            homepage.filterText = "";
+        };
 
         $scope.canShow = function (prob) {
             if (homepage.selectedCat && prob.category != homepage.selectedCat) {
                 return false;
             }
             if (homepage.filterText) {
-                return prob.name.search(homepage.filterText) ||
-                    prob.link.search(homepage.filterText) ||
-                    prob.category.search(homepage.filterText);
+                var pin = homepage.filterText.toLowerCase().trim();
+                var hay = prob.name + " " + prob.link + " " + prob.category;
+                hay = hay.toLowerCase().trim();
+                return hay.search(pin) >= 0;
             }
             return true;
         };
 
         $scope.sortBy = function (prop) {
-          homepage.problems.sort(function (a, b) {
-              return a[prop] < b[prop] ? -1 : a[prop] > b[prop];
-          });
-          homepage.sortedBy = prop;
+            homepage.problems.sort(function (a, b) {
+                return a[prop] < b[prop] ? -1 : a[prop] > b[prop];
+            });
+            homepage.sortedBy = prop;
         };
     });
 
@@ -65,19 +65,18 @@
      * APIGEE Client.
      * CRUD using Apigee client
      **********************************************************/
-    function loadClient(callback) {
-        callback(new Apigee.Client({
-            orgName: APIGEE_ORGNAME,
-            appName: APIGEE_APPNAME,
-            logging: false, //optional - turn on logging, off by default
-            buildCurl: false //optional - log network calls in the console, off by default
-        }));
-    }
+
+    var apiClient = new Apigee.Client({
+        orgName: APIGEE_ORGNAME,
+        appName: APIGEE_APPNAME,
+        logging: false, //optional - turn on logging, off by default
+        buildCurl: false //optional - log network calls in the console, off by default
+    });
 
     function doLogin(username, password) {
         //Call the login function below
-        apiClient.login(username, password, function(error, data, user){
-            if(error) {
+        apiClient.login(username, password, function (error, data, user) {
+            if (error) {
                 alert("An error occurred! See console for details");
                 console.log(error);
             } else {
@@ -89,28 +88,30 @@
     }
 
     function loadProblems() {
-        var properties = {
-            type: PROBLEMS_TYPE
-        };
-        /* We pass our properties to getEntity(), which initiates our GET request: */
-        apiClient.getEntity(properties, function (error, response) {
-            if (error) {
-                // ERROR: could not get entities
-                console.log(error);
-            } else {
-                // Success - the entities received
-                //console.log(response);
-                homepage.problems = response.entities;
-                //build category
-                homepage.problems.forEach(function (prob) {
-                    formatProblem(prob);
-                    if (prob.category) {
-                        categoryData[prob.category] = prob.category;
-                    }
-                });
-                homepage.categories = Object.getOwnPropertyNames(categoryData);
-            }
-        });
+        setTimeout(function () {
+            var properties = {
+                type: PROBLEMS_TYPE
+            };
+            /* We pass our properties to getEntity(), which initiates our GET request: */
+            apiClient.getEntity(properties, function (error, response) {
+                if (error) {
+                    // ERROR: could not get entities
+                    console.log(error);
+                } else {
+                    // Success - the entities received
+                    //console.log(response);
+                    homepage.problems = response.entities;
+                    //build category
+                    homepage.problems.forEach(function (prob) {
+                        formatProblem(prob);
+                        if (prob.category) {
+                            categoryData[prob.category] = prob.category;
+                        }
+                    });
+                    homepage.categories = Object.getOwnPropertyNames(categoryData);
+                }
+            });
+        }, 100);
     }
 
     function addProblem(prob) {
@@ -214,4 +215,5 @@
         };
     });
 
-})();
+})
+();
