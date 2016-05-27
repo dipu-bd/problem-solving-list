@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<html ng-app="ProblemListApp" ng-controller="HomePageController">
+<html ng-app="ProblemListApp" ng-controller="IndexController">
 <head>
-    <title>{{config.title}}</title>
+    <title>Problem Solving List</title>
 
     <!-- default meta tags -->
     <meta charset="UTF-8"/>
     <meta name="author" content="Sudipto Chandra"/>
     <meta name="description" content="{{config.description}}"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- open graph meta tags -->
     <!-- more here: http://ogp.me/ -->
@@ -20,29 +21,25 @@
     <link rel="shortcut icon" type="image/ico" href="favicon.png"/>
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="css/style.css"/>
-
-    <!--  load first -->
-    <script type="text/javascript" src="js/script.js"></script>
-    <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
-    <script type="text/javascript" src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
 </head>
 <body>
 
-<div ng-show="isLoggedIn()">
-    <nav-bar></nav-bar>
-    <main-body></main-body>
-    <bottom-bar></bottom-bar>
+<div ng-show="loggedIn">
+
 </div>
 
-<div ng-show="!isLoggedIn()">
-    <login-modal></login-modal>
+<div ng-show="!loggedIn">
+
 </div>
 
 </body>
 
 <!--  load later -->
 <script type="text/javascript" src="apigee/apigee.min.js"></script>
+<script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
+<script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript" src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/script.js"></script>
 <script type="text/javascript" src="js/app.js"></script>
 
 </html>

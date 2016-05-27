@@ -1,0 +1,19 @@
+<div class="navbar navbar-inverse navbar-static-top">
+    <div class="container">
+        <div class="navbar-brand">
+            {{config.title}}
+        </div>
+        <div class="navbar-text">
+            {{config.description}}
+        </div>
+        <div class="navbar-right" ng-show="loggedIn">
+            <div class="navbar-text">
+                <img src="{{user.picture}}" alt="user" height="24px" ng-show="user.picture"/>
+                <strong>{{user.name || user.username}}</strong>
+            </div>
+            <button class="btn btn-default navbar-btn" ng-click="logout()">
+                <i class="glyphicon glyphicon-log-out"></i> Logout
+            </button>
+        </div>
+    </div>
+</div>

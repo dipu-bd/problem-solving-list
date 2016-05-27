@@ -12,3 +12,7 @@ function getConfig() {
         ]
     };
 }
+
+function displayMessage(msg) {
+    alert(msg);
+}
