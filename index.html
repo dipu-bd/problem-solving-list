@@ -24,12 +24,14 @@
 </head>
 <body>
 
-<div ng-show="loggedIn">
-
+<div ng-show="!loggedIn" class="full-page">
+    <login-form></login-form>
 </div>
 
-<div ng-show="!loggedIn">
-
+<div ng-show="loggedIn" class="full-page">
+    <top-bar></top-bar>
+    <main-page></main-page>
+    <bottom-bar></bottom-bar>
 </div>
 
 </body>

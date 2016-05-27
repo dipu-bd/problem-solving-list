@@ -1,21 +1,36 @@
-<form class="form" ng-show="!loggedIn">
-    <div class="input-group">
-        <div class="input-group-addon">
-            <i class="glyphicon glyphicon-user"></i>
-        </div>
-        <input class="form-control"
-               type="text" ng-model="client.username"
-               placeholder="Username"/>
-    </div>
-    <div class="input-group">
-        <div class="input-group-addon">
-            <i class="glyphicon glyphicon-lock"></i>
-        </div>
-        <input class="form-control"
-               type="password" ng-model="client.password"
-               placeholder="Password"/>
-    </div>
-    <button class="form-control btn-primary" ng-click="doLogin(client)">
-        <i class="glyphicon glyphicon-log-in"></i> Login
-    </button>
-</form>
+<div class="login-wrapper full-page">
+
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <h4 class="modal-title">Please Login to continue</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form">
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="glyphicon glyphicon-user"></i>
+                        </div>
+                        <input class="form-control"
+                               type="text" ng-model="client.username"
+                               placeholder="Username"/>
+                    </div>
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="glyphicon glyphicon-lock"></i>
+                        </div>
+                        <input class="form-control"
+                               type="password" ng-model="client.password"
+                               placeholder="Password"/>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="form-control btn-primary" ng-click="login(client)">
+                    <i class="glyphicon glyphicon-log-in"></i> Login
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+
+</div>
