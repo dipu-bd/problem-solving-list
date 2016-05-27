@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html ng-app="ProblemListApp" ng-controller="HomePageController">
+<head>
+    <title>{{config.title}}</title>
+
+    <!-- default meta tags -->
+    <meta charset="UTF-8"/>
+    <meta name="author" content="Sudipto Chandra"/>
+    <meta name="description" content="{{config.description}}"/>
+
+    <!-- open graph meta tags -->
+    <!-- more here: http://ogp.me/ -->
+    <meta name="og:title" content="{{config.title}}"/>
+    <meta name="og:type" content="website"/>
+    <meta name="og:image" content="{{config.site_image}}"/>
+    <meta name="og:url" content="{{config.site_url}}"/>
+    <meta name="og:site_name" content="{{config.title}}"/>
+    <meta name="og:description" content="{{config.description}}"/>
+
+    <link rel="shortcut icon" type="image/ico" href="favicon.png"/>
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="css/style.css"/>
+
+    <!--  load first -->
+    <script type="text/javascript" src="js/script.js"></script>
+    <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
+</head>
+<body>
+
+<div ng-show="isLoggedIn()">
+    <nav-bar></nav-bar>
+    <main-body></main-body>
+    <bottom-bar></bottom-bar>
+</div>
+
+<div ng-show="!isLoggedIn()">
+    <login-modal></login-modal>
+</div>
+
+</body>
+
+<!--  load later -->
+<script type="text/javascript" src="apigee/apigee.min.js"></script>
+<script type="text/javascript" src="js/app.js"></script>
+
+</html>
