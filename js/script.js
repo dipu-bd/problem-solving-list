@@ -1,51 +1,15 @@
-function getConfig() {
-    return {
-        title: 'Problem Solving List',
-        description: 'List of problems to solve',
-        site_url: 'https://dipu-bd.github.io/problem-solving-list',
-        site_image: 'assets/long-list.jpg',
-        authors: [
-            {
-                name: 'Sudipto Chandra Das',
-                email: 'dipu.sudipta@gmail.com'
-            }
-        ]
-    };
-}
+/**
+ * @file script.js
+ * @desc contains function used in front-end
+ */
 
-var parseQueryString = function (str) {
-    var objURL = {};
-    str.replace(
-        new RegExp("([^?=&]+)(=([^&]*))?", "g"),
-        function ($0, $1, $2, $3) {
-            objURL[$1] = $3;
-        }
-    );
-    return objURL;
-};
-
-var checkValid = function (prob) {
-    if (!isValidURL(prob.link)) {
-        alert("Please provide valid problem link.");
-        return false;
-    }
-    if (!prob.category || prob.category.length < 2) {
-        alert("Please provide a valid category name");
-        return false;
-    }
-    return true;
-};
-
-var isValidURL = function (str) {
-    return (str);
-};
-
-var formatProblem = function (problem) {
+function formatProblem(problem) {
     var parser = document.createElement('a');
     parser.href = problem.link;
 
     var paths = parser.pathname.split('/');
     var query = parseQueryString(parser.search);
+
     switch (parser.hostname) {
         case "uva.onlinejudge.org":
             problem.name = "UVA " + query.problem;
@@ -83,7 +47,7 @@ var formatProblem = function (problem) {
             for (var i = 0; i < paths.length; ++i) {
                 if ($.isNumeric(paths[i]))
                     problem.name += paths[i] + " ";
-                else if(paths[i].length == 1)
+                else if (paths[i].length == 1)
                     problem.name += paths[i] + " ";
             }
             problem.name = problem.name.trim();
@@ -111,4 +75,55 @@ var formatProblem = function (problem) {
      parser.hash;     // => "#hash"
      parser.host;     // => "example.com:3000"
      */
-};
+}
+
+// used in formatProblem()
+function parseQueryString(str) {
+    var objURL = {};
+    str.replace(
+        new RegExp("([^?=&]+)(=([^&]*))?", "g"),
+        function ($0, $1, $2, $3) {
+            objURL[$1] = $3;
+        }
+    );
+    return objURL;
+}
+
+// used to validate add problem form
+function validatePROB(prob) {
+    if (!isValidUrl(prob.link)) {
+        alert("Please provide valid problem link.");
+        return false;
+    }
+    if (!prob.category || prob.category.length < 2) {
+        alert("Please provide a valid category name");
+        return false;
+    }
+    return true;
+}
+
+// used to validate url
+
+function isValidUrl(url) {
+    if (!url) return false;
+    var doc, base, anchor, isValid = false;
+    try {
+        doc = document.implementation.createHTMLDocument("");
+        base = doc.createElement("base");
+        base.href = base || window.lo;
+        doc.head.appendChild(base);
+        anchor = doc.createElement("a");
+        anchor.href = url;
+        doc.body.appendChild(anchor);
+        isValid = !(anchor.href === "");
+    } catch (e) {
+        console.error(e);
+    } finally {
+        doc.head.removeChild(base);
+        doc.body.removeChild(anchor);
+        base = null;
+        anchor = null;
+        doc = null;
+    }
+    return isValid;
+}

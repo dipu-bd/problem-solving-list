@@ -1352,10 +1352,10 @@ function doCallback(callback, params, context) {
         if (username === null) {
             console.log("username required to revoke tokens");
         } else {
-            this.destroyToken(username, token, revokeAll, callback);
             if (revokeAll === true || token === this.getToken() || token === null) {
                 this.setToken(null);
             }
+            this.destroyToken(username, token, revokeAll, callback);
         }
     };
     /*

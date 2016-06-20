@@ -1,4 +1,6 @@
-/* latin */
+/*****************************
+ * FONTS
+ *****************************/
 @font-face {
     font-family: 'Montserrat';
     font-style: normal;
@@ -6,6 +8,7 @@
     src: local('Montserrat-Regular'), url(../img/monteserat.woff2) format('woff2');
     unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
 }
+
 @font-face {
     font-family: 'Pacifico';
     font-style: normal;
@@ -14,7 +17,9 @@
     unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
 }
 
-
+/*****************************
+ * OTHERS
+ *****************************/
 html, body {
     background-color: #3c3c3c;
     color: #ffd;
@@ -24,14 +29,33 @@ a {
     color: #eef;
 }
 
-.author-name {
-    font: 1.6em Pacifico;
-}
-
-.form-holder {
+#form-holder {
     background-color: #222;
     margin: 10px;
     padding: 10px;
+}
+
+#login-container .modal-title {
+    padding-top: 10px;
+}
+
+#login-container {
+    color: #000;
+    width: 100%;
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#add-problem form {
+    background: #333;
+    border: 1px solid #222;
+}
+
+#main-body {
+    min-height: 86vh;
+    width: 100%;
 }
 
 .list-title {
@@ -42,18 +66,11 @@ a {
     background-color: #555;
 }
 
-.navbar {
-    margin-bottom: 0;
-}
-
-.add-problem-bar {
-    margin-top: 5px;
-}
-
 .problem-list th {
     font-size: large;
     background-color: #2c2c2c;
 }
+
 .problem-list th:hover {
     font-size: large;
     background-color: #2e2f1c;
@@ -68,6 +85,17 @@ a {
     background-color: #222;
 }
 
-.bottom-bar {
+#bottom-bar {
     margin: 10px 0 0 0;
+    padding: 10px;
+}
+
+.author-name {
+    font: 1.6em Pacifico;
+}
+
+#add-problem-label {
+    width: 100%;
+    padding: 7px 0 6px 10px;
+    text-align: center;
 }
