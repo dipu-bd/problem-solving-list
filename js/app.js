@@ -53,6 +53,7 @@
                 return alert(error.message || "Could not log out");
             }
 
+            apiClient.set("token", null);
             homepage.loggedIn = false;
             homepage.$apply();
         });
