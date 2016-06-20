@@ -28,24 +28,24 @@
      **********************************************************/
 
     function doLogin(username, password) {
-        if (LOGGING) console.log("+LOGIN");
+        if (LOGGING) console.log("+LOG IN");
 
         //Call the login function below
         apiClient.login(username, password, function (error, data, user) {
             if (error) {
                 if (LOGGING) console.log(error);
+                apiClient.set("token", null);
                 return alert(error.message || "Could not log in");
             }
 
             homepage.loggedIn = true;
             homepage.client = user._data;
-
             homepage.$apply();
         });
     }
 
     function doLogout() {
-        if (LOGGING) console.log("+LOGOUT");
+        if (LOGGING) console.log("+LOG OUT");
 
         apiClient.logoutAndDestroyToken(homepage.client.username, null, null, function (error, data) {
             if (error) {

@@ -18,18 +18,17 @@
 
                 <!-- category list -->
                 <ul class="nav navbar-nav">
-                    <li class="active">
-                        <a href="javascript:null;" class="active" ng-click="setCategory(null)">
-                            {{selectedCat || "All Problems"}}
-                        </a>
-                    </li>
                     <li class="dropdown">
                         <a href="javascript:null;" class="dropdown-toggle" role="button"
                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            More <span class="caret"></span>
+                            {{selectedCat || "All Problems"}} <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li ng-repeat="cat in categories" ng-show="selectedCat !== cat">
+                            <li ng-class="{ 'text-uppercase': !selectedCat }">
+                                <a href="javascript:null;" ng-click="setCategory(null)">All Problems</a>
+                            </li>
+                            <li class="divider" role="separator"></li>
+                            <li ng-repeat="cat in categories" ng-class="{ 'text-uppercase': selectedCat === cat }">
                                 <a href="javascript:null;" ng-click="setCategory(cat)">{{cat}}</a>
                             </li>
                         </ul>
