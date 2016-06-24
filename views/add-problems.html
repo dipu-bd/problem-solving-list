@@ -1,34 +1,48 @@
-<section id="add-problem" class="container">
-    <form class="thumbnail" action="javascript:null;">
-        <div class="row">
-            <div class="col-sm-2">
-                <label id="add-problem-label">New Problem</label>
-            </div>
-            <div class="col-sm-5">
-                <div class="input-group">
-                    <div class="input-group-addon">
-                        <i class="glyphicon glyphicon-link"></i>
-                    </div>
-                    <input class="form-control"
-                           type="text" name="problem" ng-model="problem.link"
-                           placeholder="Enter problem link"/>
-                </div>
-            </div>
-            <div class="col-sm-3">
-                <div class="input-group">
-                    <div class="input-group-addon">
-                        <i class="glyphicon glyphicon-list"></i>
-                    </div>
-                    <input class="form-control"
-                           type="text" name="category" ng-model="problem.category"
-                           placeholder="Enter category"/>
-                </div>
-            </div>
-            <div class="col-sm-2">
-                <button class="form-control" id="add-button" ng-click="addProblem(problem)">
-                    <i class="glyphicon glyphicon-plus"></i> Add
+<div class="modal fade" id="add-problem" tabindex="-1" role="dialog" aria-labelledby="add-problem">
+    <div class="modal-dialog" role="document">
+
+        <form class="modal-content" action="javascript:null;">
+
+            <div class="modal-header">
+                <button class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
                 </button>
+                <h3 class="modal-title" style="color: black; padding-top: 20px">Add New Problem</h3>
             </div>
-        </div>
-    </form>
-</section>
+
+            <div class="modal-body">
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="input-group-addon"><i class="glyphicon glyphicon-link"></i></div>
+                        <input class="form-control" type="text" name="problem" ng-model="problem.link"
+                               placeholder="Enter problem link"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="input-group-addon"><i class="glyphicon glyphicon-list"></i></div>
+                        <input class="form-control" type="text" name="category" ng-model="problem.category"
+                               placeholder="Enter category"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <textarea class="form-control" name="comment" ng-model="problem.comment"
+                              placeholder="Comment on this problem"></textarea>
+                </div>
+
+                <div class="modal-footer">
+                    <div class="form-group">
+                        <button class="btn btn-primary" id="add-button" ng-click="addProblem(problem)">
+                            <i class="glyphicon glyphicon-plus"></i> Add Problem
+                        </button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">
+                            <i class="glyphicon glyphicon-remove"></i> Cancel
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </form>
+
+    </div>
+</div>

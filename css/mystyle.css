@@ -29,11 +29,6 @@ a {
     color: #eef;
 }
 
-#form-holder {
-    background-color: #222;
-    margin: 10px;
-    padding: 10px;
-}
 
 #login-container .modal-title {
     padding-top: 10px;
@@ -48,10 +43,6 @@ a {
     justify-content: center;
 }
 
-#add-problem form {
-    background: #333;
-    border: 1px solid #222;
-}
 
 #main-body {
     min-height: 86vh;
@@ -78,6 +69,11 @@ a {
 
 .problem-list .link {
     color: #fffe0f;
+    text-decoration: none;
+}
+.problem-list .link:hover {
+    color: #ffb812;
+    text-decoration: none;
 }
 
 .category-menu {
@@ -94,8 +90,22 @@ a {
     font: 1.6em Pacifico;
 }
 
-#add-problem-label {
-    width: 100%;
-    padding: 7px 0 6px 10px;
-    text-align: center;
+span:hover {
+    color: orangered;
+    position: relative;
+}
+
+span[title]:hover:after {
+    content: attr(title);
+    padding: 5px 12px 5px 12px;
+    color: #333;
+    margin: 2px 0 0 5px;
+    text-decoration: none;
+    text-underline-color: #fff;
+    white-space: nowrap;
+    z-index: 20;
+    border-radius: 5px;
+    box-shadow: 0 0 4px #222;
+    background: #fff;
+    background-image: linear-gradient(top, #eeeeee, #cccccc);
 }

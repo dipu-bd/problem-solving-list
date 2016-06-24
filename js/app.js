@@ -17,11 +17,11 @@
     var categoryData = {};
     var lastResponseTime = 0;
 
-    var apiClient = new Apigee.Client({
+    var clientOptions = {
         orgName: 'sdipu',
         appName: 'problemsolvinglist',
         logging: LOGGING
-    });
+    };
 
     /*********************************************************
      * APIGEE Client Controller.
@@ -31,10 +31,10 @@
         if (LOGGING) console.log("+LOG IN");
 
         //Call the login function below
-        apiClient.login(username, password, function (error, data, user) {
+        homepage.apiClient.login(username, password, function (error, data, user) {
             if (error) {
                 if (LOGGING) console.log(error);
-                apiClient.set("token", null);
+                homepage.apiClient.set("token", null);
                 return alert(error.message || "Could not log in");
             }
 
@@ -47,13 +47,13 @@
     function doLogout() {
         if (LOGGING) console.log("+LOG OUT");
 
-        apiClient.logoutAndDestroyToken(homepage.client.username, null, null, function (error, data) {
+        homepage.apiClient.logoutAndDestroyToken(homepage.client.username, null, null, function (error, data) {
             if (error) {
                 if (LOGGING) console.log(error);
                 return alert(error.message || "Could not log out");
             }
 
-            apiClient.set("token", null);
+            homepage.apiClient.set("token", null);
             homepage.loggedIn = false;
             homepage.$apply();
         });
@@ -72,7 +72,8 @@
                 endpoint: PROBLEMS_TYPE,
                 qs: { limit: 100000000 }
             };
-            apiClient.request(options, function (error, response) {
+
+            homepage.apiClient.request(options, function (error, response) {
 
                 refreshButton.attr("disabled", false);
 
@@ -129,7 +130,7 @@
             prob.type = PROBLEMS_TYPE;
 
             // send request to api client
-            apiClient.createEntity(prob, function (error, response) {
+            homepage.apiClient.createEntity(prob, function (error, response) {
 
                 addButton.attr("disabled", false);
 
@@ -137,16 +138,11 @@
                     return alert(error.message || "Error - there was a problem creating the entity");
                 }
 
-                homepage.problem = {};
+                var addProb = $('#add-problem');
+                addProb.modal('hide');
+                addProb.find('form')[0].reset();
 
-                prob = response.entities[0];
-                if (LOGGING) console.log(prob);
-
-                homepage.problems.push(prob);
-                homepage.categoryData[prob.category] = prob.category;
-                homepage.categories = Object.getOwnPropertyNames(homepage.categoryData);
-
-                homepage.$apply();
+                getProblems();
             });
         }, 10);
     }
@@ -164,7 +160,7 @@
             if (LOGGING) console.log("+DELETE PROBLEM");
 
             var properties = {
-                client: apiClient,
+                client: homepage.apiClient,
                 data: {
                     type: PROBLEMS_TYPE,
                     uuid: prob.uuid
@@ -182,11 +178,7 @@
                     return alert(error.message || "Error - there was a problem deleting the entity");
                 }
 
-                homepage.problems = homepage.problems.filter(function (item) {
-                    return item.uuid !== prob.uuid;
-                });
-
-                homepage.$apply();
+                getProblems();
             });
 
         }, 10);
@@ -195,9 +187,9 @@
     function updateUser() {
         if (LOGGING) console.log("+UPDATE USER");
 
-        homepage.loggedIn = apiClient.isLoggedIn();
+        homepage.loggedIn =  homepage.apiClient.isLoggedIn();
         setTimeout(function () {
-            apiClient.getLoggedInUser(function (err, data, user) {
+            homepage.apiClient.getLoggedInUser(function (err, data, user) {
                 homepage.client = user._data || {};
                 homepage.$apply();
             });
@@ -215,6 +207,9 @@
         homepage.categories = []; // for category list
         homepage.selectedCat = ""; // for selected category
         homepage.filterText = ""; // for search text
+
+        // load client
+        homepage.apiClient = new Apigee.Client(clientOptions);
 
         // download and show list of problems
         getProblems();
@@ -237,6 +232,7 @@
         homepage.clearFilter = function () {
             homepage.filterText = "";
         };
+
     });
 
 
@@ -270,10 +266,10 @@
         };
     });
 
-    problemListApp.directive('mainBody', function () {
+    problemListApp.directive('problemList', function () {
         return {
             restrict: 'E',
-            templateUrl: 'views/home.html'
+            templateUrl: 'views/problem-list.html'
         };
     });
 

@@ -3,6 +3,7 @@
     <!-- problems tool bar-->
     <div class="navbar navbar-inverse">
         <div class="container-fluid">
+
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
                         data-target="#aside-content" aria-expanded="false">
@@ -11,17 +12,25 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <div class="navbar-brand">List of</div>
+                <div class="navbar-brand hidden-sm visible-xs">All problems</div>
             </div>
 
             <div class="collapse navbar-collapse" id="aside-content">
 
                 <!-- category list -->
                 <ul class="nav navbar-nav">
+                    <li><a href="javascript:null" data-toggle="modal" data-target="#add-problem">
+                        <i class="glyphicon glyphicon-plus"></i> Add Problem
+                    </a></li>
+                    <li><a href="javascript:null" ng-click="loadProblems();">
+                        <i class="glyphicon glyphicon-refresh"></i>
+                        <span id="reloadButton">Refresh</span>
+                    </a></li>
                     <li class="dropdown">
                         <a href="javascript:null;" class="dropdown-toggle" role="button"
                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            {{selectedCat || "All Problems"}} <span class="caret"></span>
+                            Showing <b>{{selectedCat || "All"}}</b> Problems
+                            <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
                             <li ng-class="{ 'text-uppercase': !selectedCat }">
@@ -40,13 +49,6 @@
                 <search-problem role="search" class="navbar-right"></search-problem>
                 <!-- search form -->
 
-                <!-- refresh button -->
-                <button id="refresh-button" ng-click="loadProblems();"
-                        class="navbar-btn btn btn-default navbar-right">
-                    <i class="glyphicon glyphicon-refresh"></i>
-                    <span id="reloadButton">Refresh</span>
-                </button>
-                <!-- refresh button -->
 
             </div>
 

@@ -23,7 +23,11 @@
             <tr ng-repeat="prob in problems" class="problem">
                 <td ng-show="canShow(prob)">
                     <a class="link" target="_blank" href="{{prob.link||'#'}}">
-                        <i class="glyphicon glyphicon-export"></i> {{prob.name || prob.link}}
+                        <i class="glyphicon glyphicon-export"></i>
+                        {{prob.name || prob.link}}
+                        <span title="{{prob.comment}}" ng-show="prob.comment">
+                            <i class="glyphicon glyphicon-comment"></i>
+                        </span>
                     </a>
                 </td>
                 <td ng-show="canShow(prob)">
