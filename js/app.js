@@ -10,7 +10,7 @@
 
     var problemListApp = angular.module('ProblemListApp', []);
 
-    var LOGGING = false;
+    var LOGGING = true;
     var PROBLEMS_TYPE = 'problems';
 
     var homepage = {};
@@ -68,8 +68,11 @@
             var refreshButton = $("#refresh-button");
             refreshButton.attr("disabled", true);
 
-            /* We pass our properties to getEntity(), which initiates our GET request: */
-            apiClient.getEntity({type: PROBLEMS_TYPE}, function (error, response) {
+            var options = {
+                endpoint: PROBLEMS_TYPE,
+                qs: { limit: 100000000 }
+            };
+            apiClient.request(options, function (error, response) {
 
                 refreshButton.attr("disabled", false);
 
@@ -98,6 +101,8 @@
 
                     // set category
                     homepage.categories = Object.getOwnPropertyNames(categoryData);
+
+                    if (LOGGING) console.log(homepage.problems);
 
                     homepage.$apply();
                 }
