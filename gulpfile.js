@@ -47,7 +47,7 @@ gulp.task('build-index', function () {
     return gulp.src('index.html')
         .pipe(inject(source))
         .pipe(htmlmin({collapseWhitespace: true}))
-        .pipe(gulp.dest(destFolder + 'dist'));
+        .pipe(gulp.dest(destFolder));
 });
 
 gulp.task('build-views', function () {
