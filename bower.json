@@ -1,11 +1,11 @@
 {
-  "name": "ProblemsToSolve",
+  "name": "problem-solving-list",
   "authors": [
     "dipu-bd <dipu.sudipta@gmail.com>"
   ],
   "description": "List of problems to solve",
   "main": "index.html",
-  "license": "MIT",
+  "license": "ISC",
   "homepage": "dipu-bd.github.io/problem-solving-list",
   "ignore": [
     "**/.*",
@@ -16,7 +16,6 @@
   ],
   "dependencies": {
     "bootstrap": "^3.3.6",
-    "angular": "angularjs#^1.5.5",
-    "apigee-javascript-sdk": "https://github.com/apigee/apigee-javascript-sdk"
+    "angular": "^1.5.7"
   }
 }
