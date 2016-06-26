@@ -19,6 +19,7 @@
   "homepage": "https://dipu-bd.github.io/problem-solving-list",
   "devDependencies": {
     "gulp": "^3.9.1",
+    "gulp-clean": "^0.3.2",
     "gulp-clean-css": "^2.0.10",
     "gulp-concat": "^2.6.0",
     "gulp-htmlmin": "^2.0.0",
