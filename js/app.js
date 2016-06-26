@@ -28,12 +28,12 @@
      **********************************************************/
 
     function doLogin(username, password) {
-        if (LOGGING) console.log("+LOG IN");
+        // if (LOGGING) console.log("+LOG IN");
 
         //Call the login function below
         homepage.apiClient.login(username, password, function (error, data, user) {
             if (error) {
-                if (LOGGING) console.log(error);
+                // if (LOGGING) console.log(error);
                 homepage.apiClient.set("token", null);
                 return alert(error.message || "Could not log in");
             }
@@ -45,11 +45,11 @@
     }
 
     function doLogout() {
-        if (LOGGING) console.log("+LOG OUT");
+        // if (LOGGING) console.log("+LOG OUT");
 
         homepage.apiClient.logoutAndDestroyToken(homepage.client.username, null, null, function (error, data) {
             if (error) {
-                if (LOGGING) console.log(error);
+                // if (LOGGING) console.log(error);
                 return alert(error.message || "Could not log out");
             }
 
@@ -63,7 +63,7 @@
     function getProblems() {
 
         setTimeout(function () {
-            if (LOGGING) console.log("+GET PROBLEMS");
+            // if (LOGGING) console.log("+GET PROBLEMS");
 
             var refreshButton = $("#refresh-button");
             refreshButton.attr("disabled", true);
@@ -78,7 +78,7 @@
                 refreshButton.attr("disabled", false);
 
                 if (error) {
-                    if (LOGGING) console.log(error);
+                    // if (LOGGING) console.log(error);
                 } else {
                     //console.log(response);
 
@@ -103,7 +103,7 @@
                     // set category
                     homepage.categories = Object.getOwnPropertyNames(categoryData);
 
-                    if (LOGGING) console.log(homepage.problems);
+                    // if (LOGGING) console.log(homepage.problems);
 
                     homepage.$apply();
                 }
@@ -118,12 +118,12 @@
         addButton.attr("disabled", true);
 
         setTimeout(function () {
-            if (LOGGING) console.log("+ADD PROBLEM");
+            // if (LOGGING) console.log("+ADD PROBLEM");
 
             // validity check
             if (!validatePROB(prob)) return;
 
-            if (LOGGING) console.log("++VALIDATED");
+            // if (LOGGING) console.log("++VALIDATED");
 
             // define data type
             formatProblem(prob);
@@ -157,7 +157,7 @@
         deleteButton.attr('disabled', true);
 
         setTimeout(function () {
-            if (LOGGING) console.log("+DELETE PROBLEM");
+            // if (LOGGING) console.log("+DELETE PROBLEM");
 
             var properties = {
                 client: homepage.apiClient,
@@ -185,7 +185,7 @@
     }
 
     function updateUser() {
-        if (LOGGING) console.log("+UPDATE USER");
+        // if (LOGGING) console.log("+UPDATE USER");
 
         homepage.loggedIn =  homepage.apiClient.isLoggedIn();
         setTimeout(function () {
